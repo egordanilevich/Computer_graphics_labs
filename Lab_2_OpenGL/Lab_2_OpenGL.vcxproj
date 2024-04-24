@@ -129,6 +129,10 @@
   <ItemGroup>
     <ClCompile Include="Lab_2_OpenGL.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="scenes.hpp" />
+    <ClInclude Include="util.hpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
