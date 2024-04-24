@@ -151,6 +151,7 @@ int main(int argc, char** argv)
 	glutInitWindowSize(1600, 800); // Устанавливаем размеры окна
 	glutInitWindowPosition(10, 20); // Устанавливаем позицию окна на экране
 	glutCreateWindow("Snowman");
+	
 	glutDisplayFunc(display);  // Устанавливаем функцию отрисовки
 	glutSpecialFunc(specialkeys); // Устанавливаем функцию обработки специальных клавиш
 	Initialize(); // Выполняем инициализацию

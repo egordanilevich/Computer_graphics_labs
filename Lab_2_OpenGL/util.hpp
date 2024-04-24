@@ -21,24 +21,29 @@ void Initialize()
 	//left right bottom top near far Определяет область отсечения видимой области
 	glMatrixMode(GL_MODELVIEW);
 	glEnable(GL_DEPTH_TEST); // Включаем тест глубины. Если этого не сделать изображение не будет отображаться правильно
+
+	// Включаем сглаживание
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	glLoadIdentity();
 }
 
 // Функция для отрисовки осей
 void drawAxes(float k) {
-	glColor3f(0, 1, 0);
+	glColor4f(0, 1, 0, 1);
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0); //Начальная точка
 	glVertex3f(0.0, k * 2.0, 0.0); //Конечная точка
 	glEnd();
 
-	glColor3f(1, 0, 0);
+	glColor4f(1, 0, 0, 1);
 	glBegin(GL_LINES);
 	glVertex3f(0.0, 0.0, 0.0); //Ось x по направлению
 	glVertex3f(k * 2.0, 0.0, 0.0);
 	glEnd();
 
-	glColor3f(0, 0, 1);
+	glColor4f(0, 0, 1, 1);
 	glBegin(GL_LINES); //Отрисовывает последнюю ось как не смещенную точку начала
 	glVertex3f(0.0, 0.0, 0.0);
 	glVertex3f(0.0, 0.0, k * 2.0);
@@ -49,7 +54,7 @@ void drawAxes(float k) {
 void draw_snow_man(float k, params& in_params) 
 {
 	drawAxes(k);//оси
-	glColor3f(1, 1, 1);//цвет
+	glColor4f(1, 1, 1, 1);//цвет
 	glScalef(k, k, k);//масштаб
 	glutSolidSphere(in_params.maxRad, 100, 100);//тело
 
@@ -57,11 +62,11 @@ void draw_snow_man(float k, params& in_params)
 	glutSolidSphere(in_params.S * in_params.maxRad, 100, 100);//голова
 
 	glTranslatef(0.0, 0.0, in_params.S * in_params.maxRad);
-	glColor3f(1, 0.7, 0.0);
+	glColor4f(1, 0.7, 0.0, 1);
 	glutSolidCone(0.1, 0.5, 100, 100);//нос
 
 	//глаза
-	glColor3f(0.0, 0.0, 0.0);
+	glColor4f(0.0, 0.0, 0.0, 1);
 	glTranslatef(0.1, 0.15, 0.0);
 	glutSolidSphere(0.05, 100, 100);
 	glTranslatef((-0.2), 0.0, 0.0);
@@ -80,7 +85,7 @@ void draw_rotate_snowman(float k, params& in_params)
 	glRotatef(in_params.rot, 0, 0, 1);	// Вращаем снеговика вокруг его носа
 	glTranslatef(0.0, -(in_params.maxRad + in_params.S * in_params.maxRad), 0.0); //Возвращаем
 	// Масштабируем и рисуем большую сферу (тело снеговика)
-	glColor3f(1, 1, 1);
+	glColor4f(1, 1, 1, 1);
 	
 	glutSolidSphere(in_params.maxRad, 100, 100);//тело
 
@@ -88,11 +93,11 @@ void draw_rotate_snowman(float k, params& in_params)
 	glutSolidSphere(in_params.S * in_params.maxRad, 100, 100); // Рисуем голову
 
 	glTranslatef(0.0, 0.0, in_params.S * in_params.maxRad);
-	glColor3f(1, 0.7, 0.0);
+	glColor4f(1, 0.7, 0.0, 1);
 	glutSolidCone(0.1, 0.5, 100, 100);// Рисуем нос
 
 	// Рисуем глаза снеговика
-	glColor3f(0.0, 0.0, 0.0);
+	glColor4f(0.0, 0.0, 0.0, 1);
 	glTranslatef(0.1, 0.15, 0.0);
 	glutSolidSphere(0.05, 100, 100);
 	glTranslatef(-0.2, 0.0, 0.0);

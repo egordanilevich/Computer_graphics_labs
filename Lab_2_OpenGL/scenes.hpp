@@ -9,13 +9,13 @@ void scene_1(params& in_params)
 	glColor3f(1, 1, 1);
 	glPushMatrix();
 	glTranslatef(0.0, in_params.maxRad, 0.0);
-	glutSolidSphere(in_params.maxRad, 50, 50);
+	glutSolidSphere(in_params.maxRad, 100, 100);
 
 	glPopMatrix();
 	glTranslatef(in_params.maxRad + in_params.S * in_params.maxRad, in_params.S * in_params.maxRad, 0.0);
 	glPushMatrix();
 	glScalef(in_params.S, in_params.S, in_params.S);
-	glutSolidSphere(in_params.maxRad, 50, 50);
+	glutSolidSphere(in_params.maxRad, 100, 100);
 
 	glPopMatrix();
 	glColor3f(0, 0, 0);
@@ -23,12 +23,12 @@ void scene_1(params& in_params)
 	glutSolidSphere(0.05, 50, 50);
 
 	glTranslatef(0.2, 0.0, 0.0);
-	glutSolidSphere(0.05, 50, 50);
+	glutSolidSphere(0.05, 100, 100);
 
 	glTranslatef(0.2, -0.05, 0.0);
 	glColor3f(1, 0.7, 0.0);
-	glRotatef(270, 1, 1, 1);
-	glutSolidCone(0.1, 0.5, 50, 50);
+	glRotatef(-90, 1, 0, 0);
+	glutSolidCone(0.1, 0.5, 100, 100);
 }
 
 
@@ -140,6 +140,8 @@ void scene_9(params& in_params) // Функция отрисовки сцены 
 	draw_snow_man(1, in_params); // Отрисовываем снеговика с масштабом 1
 	glPopMatrix(); // Восстанавливаем положение матрицы моделирования
 	glTranslatef(in_params.maxRad + 0.7 * in_params.maxRad, 0.7 * in_params.maxRad, 0.0); // Переносим на позицию для следующего снеговика
+	glRotatef(90, 0, 1, 0); // Поворачиваем на угол rot вокруг оси y
+
 	draw_snow_man(0.7, in_params); // Отрисовываем снеговика с масштабом 0.7
 	glPopMatrix(); // Восстанавливаем положение матрицы моделирования
 	glTranslatef(in_params.maxRad + 2 * 0.7 * in_params.maxRad + 0.49 * in_params.maxRad, 0.49 * in_params.maxRad, 0.0); // Переносим на позицию для следующего снеговика
