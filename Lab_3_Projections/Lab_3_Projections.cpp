@@ -5,158 +5,26 @@
 
 #include "Projections.hpp"
 
-
-int rot = 0;
-int alfa = 0;
-int ex = 0;
-int maxRad = 1;
-float S = 0.3;
-GLint VP = 300;
-GLfloat pi = 3.14159;
-GLfloat f;
+params view_params;
 
 
-void Initialize() {
-	glClearColor(0.3, 0.3, 0.3, 1.0); //задаем цвет заливки холста
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
-	glMatrixMode(GL_MODELVIEW);
-	glEnable(GL_DEPTH_TEST); // включаем тест глубины. ≈сли этого не сделать видимыми будут объекты не  расположенные ближе всего к наблюдателю, а созданные последними.
-	glLoadIdentity();
-}
-
-void drawAxes(float k) {
-	glColor3f(0, 1, 0);
-	glBegin(GL_LINES);
-	glVertex3f(0.0, 0.0, 0.0); //Ќачальна€ точка
-	glVertex3f(0.0, k * 2.0, 0.0); // онечна€ точка
-	glEnd();
-
-	glColor3f(1, 0, 0);
-	glBegin(GL_LINES);
-	glVertex3f(0.0, 0.0, 0.0);
-	glVertex3f(k * 2.0, 0.0, 0.0);
-	glEnd();
-
-	glColor3f(0, 0, 1);
-	glBegin(GL_LINES);
-	glVertex3f(0.0, 0.0, 0.0);
-	glVertex3f(0.0, 0.0, k * 2.0);
-	glEnd();
-}
-
-void draw_model() 
-{
-	glBegin(GL_LINES);
-	glColor3f(0, 1, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(1, 0, 0);
-	glColor3f(1, 0, 0);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 1, 0);
-	glColor3f(0, 0, 1);
-	glVertex3f(0, 0, 0);
-	glVertex3f(0, 0, 1);
-	glEnd();
-	glColor3f(1, 1, 1);
-
-	glBegin(GL_POLYGON);
-	glColor3f(1, 0, 0);
-	glVertex3f(0, 0, 0.5);
-	glVertex3f(0.5, 0, 0.5);
-	glVertex3f(0.5, -0.5, 0.5);
-	glVertex3f(0, -0.5, 0.5);
-	glEnd();
 
 
-	glBegin(GL_POLYGON);
-	glVertex3f(-0.5, 0.5, 0.5);
-	glVertex3f(0, 0.5, 0.5);
-	glVertex3f(0, -0.5, 0.5);
-	glVertex3f(-0.5, -0.5, 0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(0.6, 0.7, 0.9);
-	glVertex3f(-0.5, -0.5, 0.5);
-	glVertex3f(-0.5, -0.5, -0.5);
-	glVertex3f(-0.5, 0.5, -0.5);
-	glVertex3f(-0.5, 0.5, 0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 0);
-	glVertex3f(-0.5, 0.5, 0.5);
-	glVertex3f(-0.5, 0.5, -0.5);
-	glVertex3f(0, 0.5, -0.5);
-	glVertex3f(0, 0.5, 0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(0, 0, 1);
-	glVertex3f(0, 0, 0.5);
-	glVertex3f(0, 0.5, 0.5);
-	glVertex3f(0, 0.5, -0.5);
-	glVertex3f(0, 0, -0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 0);
-	glVertex3f(0, 0, -0.5);
-	glVertex3f(0, -0.5, -0.5);
-	glVertex3f(0.5, -0.5, -0.5);
-	glVertex3f(0.5, 0, -0.5);
-	glEnd();
-	glBegin(GL_POLYGON);
-	glVertex3f(0, 0.5, -0.5);
-	glVertex3f(-0.5, 0.5, -0.5);
-	glVertex3f(-0.5, -0.5, -0.5);
-	glVertex3f(0, -0.5, -0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(1, 0, 1);
-	glVertex3f(0.5, -0.5, 0.5);
-	glVertex3f(0.5, -0.5, -0.5);
-	glVertex3f(-0.5, -0.5, -0.5);
-	glVertex3f(-0.5, -0.5, 0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(0, 1, 1);
-	glVertex3f(0.5, 0, 0.5);
-	glVertex3f(0, 0, 0.5);
-	glVertex3f(0, 0, -0.5);
-	glVertex3f(0.5, 0, -0.5);
-	glEnd();
-
-	glBegin(GL_POLYGON);
-	glColor3f(1, 1, 1);
-	glVertex3f(0.5, -0.5, 0.5);
-	glVertex3f(0.5, 0, 0.5);
-	glVertex3f(0.5, 0, -0.5);
-	glVertex3f(0.5, -0.5, -0.5);
-	glEnd();
-
-	glColor3f(0, 0.7, 0.1);
-	glTranslatef(0.20, 0.20, 0.20);
-	glutSolidSphere(0.20, 100, 100);
-}
 
 
 
 void specialkeys(int key, int x, int y) {
-	if (key == GLUT_KEY_LEFT) { rot = rot - 2.0; }
+	if (key == GLUT_KEY_LEFT) { view_params.rot = view_params.rot - 2.0; }
 	else
-		if (key == GLUT_KEY_RIGHT) { rot = rot + 2.0; }
+		if (key == GLUT_KEY_RIGHT) { view_params.rot = view_params.rot + 2.0; }
 		else
-			if (key == GLUT_KEY_UP) { alfa = alfa - 2.0; }
+			if (key == GLUT_KEY_UP) { view_params.alfa = view_params.alfa - 2.0; }
 			else
-				if (key == GLUT_KEY_DOWN) { alfa = alfa + 2.0; }
+				if (key == GLUT_KEY_DOWN) { view_params.alfa = view_params.alfa + 2.0; }
 				else {
-					ex = key;
-					rot = 0;
-					alfa = 0;
+					view_params.ex = key;
+					view_params.rot = 0;
+					view_params.alfa = 0;
 				}
 	glutPostRedisplay();  //принудительный вызов функции визуализации
 }
@@ -180,7 +48,7 @@ void Display() {
 	glRotatef(alfa, 1, 0, 0);
 	draw_model();
 
-	//ќ–“ќ√–ј‘»„≈— »≈
+	//Ортографические
 
 	//план
 	glViewport(VP * 3, VP * 2, VP, VP); //область просмотра
@@ -212,9 +80,9 @@ void Display() {
 	draw_model();
 
 
-	//ѕ≈–—ѕ≈ “»¬Ќџ≈
+	//Перспективные
 
-	//одноточечна€
+	//одноточечная
 	glViewport(0, VP, VP, VP);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -224,7 +92,7 @@ void Display() {
 	glLoadIdentity();
 	draw_model();
 
-	//двухточечна€
+	//двухточечная
 	glViewport(0, 0, VP, VP);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -235,7 +103,7 @@ void Display() {
 	glRotatef(-35, -1, 0, 0);
 	draw_model();
 
-	//трЄхточечна€
+	//трехточечная
 	glViewport(VP, 0, VP, VP);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -246,7 +114,7 @@ void Display() {
 	glRotatef(-50, -1, 1, 0);
 	draw_model();
 
-	// ќ—ќ”√ќЋ№Ќџ≈
+	// Косоугольные
 
 	// Кавалье
 	glViewport(VP * 2, 0, VP, VP);
@@ -283,7 +151,7 @@ void Display() {
 	draw_model();
 
 
-	//ј —ќЌќћ≈“–»„≈— »≈
+	//Аксонометрические
 
 	//триметрическая
 	glViewport(VP, VP, VP, VP);
@@ -324,7 +192,16 @@ void Display() {
 	glutSwapBuffers();
 }
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv) 
+{
+	view_params.rot = 0;
+	view_params.alfa = 0;
+	view_params.ex = 0;
+	view_params.maxRad = 1;
+	view_params.S = 0.3;
+	view_params.VP = 300;
+	view_params.pi = 3.14159;
+	view_params.f;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB); //используем буфер глубины, двойную буферизацию и представление цвета триадой RGB.
 	glutInitWindowSize(1120, 840);
