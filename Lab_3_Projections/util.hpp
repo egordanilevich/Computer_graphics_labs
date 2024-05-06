@@ -2,16 +2,16 @@
 #include <GL/glut.h>
 #include <math.h>
 
+
+
 struct  params
 {
-	int rot;
 	int alfa;
-	int ex;
-	int maxRad;
-	float S;
+	int beta;
+	//int ex;
+	//int maxRad;
+	//float S;
 	GLint VP;
-	GLfloat pi;
-	GLfloat f;
 };
 
 void Initialize() 
@@ -20,7 +20,7 @@ void Initialize()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	glMatrixMode(GL_MODELVIEW);
-	glEnable(GL_DEPTH_TEST); // включаем тест глубины. ≈сли этого не сделать видимыми будут объекты не  расположенные ближе всего к наблюдателю, а созданные последними.
+	glEnable(GL_DEPTH_TEST); // включаем тест глубины. если этого не сделать видимыми будут объекты не  расположенные ближе всего к наблюдателю, а созданные последними.
 	glLoadIdentity();
 }
 
@@ -45,7 +45,8 @@ void drawAxes(float k)
 	glEnd();
 }
 
-void draw_model() {
+void draw_model() 
+{
 	glBegin(GL_LINES);
 	glColor3f(0, 1, 0);
 	glVertex3f(0, 0, 0);
@@ -137,3 +138,4 @@ void draw_model() {
 	glVertex3f(0.5, -0.5, -0.5);
 	glEnd();
 }
+
