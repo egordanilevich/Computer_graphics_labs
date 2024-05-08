@@ -8,9 +8,6 @@ struct  params
 {
 	int alfa;
 	int beta;
-	//int ex;
-	//int maxRad;
-	//float S;
 	GLint VP;
 };
 

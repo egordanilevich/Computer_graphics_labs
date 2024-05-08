@@ -16,17 +16,9 @@ params view_params;
 void specialkeys(int key, int x, int y) 
 {
 	if (key == GLUT_KEY_LEFT) { view_params.alfa = view_params.alfa - 2.0; }
-	else
-		if (key == GLUT_KEY_RIGHT) { view_params.alfa = view_params.alfa + 2.0; }
-		else
-			if (key == GLUT_KEY_UP) { view_params.beta = view_params.beta - 2.0; }
-			else
-				if (key == GLUT_KEY_DOWN) { view_params.beta = view_params.beta + 2.0; }
-				else {
-					//view_params.ex = key;
-					view_params.alfa = 0;
-					view_params.beta = 0;
-				}
+	else if (key == GLUT_KEY_RIGHT) { view_params.alfa = view_params.alfa + 2.0; }
+		else if (key == GLUT_KEY_UP) { view_params.beta = view_params.beta - 2.0; }
+			else if (key == GLUT_KEY_DOWN) { view_params.beta = view_params.beta + 2.0; }
 	glutPostRedisplay();  //принудительный вызов функции визуализации
 }
 
@@ -53,8 +45,8 @@ void Display()
 	p_10_dimetric(view_params);
 	p_11_trimetric(view_params);
 	// Косоугольные
-	p_4_Cabine(view_params);
-	p_8_Cavalie(view_params);
+	p_4_Cabinet(view_params);
+	p_8_Cavalier(view_params);
 	
 	
 	
@@ -65,9 +57,6 @@ int main(int argc, char** argv)
 {
 	view_params.alfa = 0;
 	view_params.beta = 0;
-	//view_params.ex = 0;
-	//view_params.maxRad = 1;
-	//view_params.S = 0.3;
 	view_params.VP = 280;
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGB); //используем буфер глубины, двойную буферизацию и представление цвета триадой RGB.
